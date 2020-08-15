@@ -1,0 +1,71 @@
+drop database Tienda
+create database SantaMaria
+use SantaMaria
+
+
+
+create table Proveedor(
+Nombre_Empresa_Proveedor nvarchar(20)not null,
+Direccion_Proveedor nvarchar (50)not null,
+Correo_Proveedor nvarchar(50)not null,
+Telefono_Proveedor int not null,
+Ruc_Proveedor int  primary Key not null,
+)
+
+create table Detalle_Ordenes (
+id_producto_proveedor int identity primary Key not null,
+Cantidad_proveedor int not null,
+Total_proveedor int not null,
+Descripcion_proveedor nvarchar (50)not null,
+)
+create table Cliente(
+Cedula int  primary Key not null,
+Nombre nvarchar(20)not null,
+Apellido nvarchar(20)not null,
+Direccion nvarchar (50)not null,
+Correo nvarchar(50)not null,
+Telefono int not null
+
+)
+create table Producto(
+id_producto int identity primary Key ,
+Cantidad int not null,
+Total int not null,
+Descripcion nvarchar (50)not null,
+)
+create table Ordenes(
+id_ordenes int identity primary key not null,
+Nombre_Cliente nvarchar (20)not null,
+Direccion_Cliente nvarchar (50)not null,
+Correo_Cliente nvarchar(20) not null,
+Telefono_Cliente int not null,
+cedula int,
+id_producto int
+)
+
+
+select*from Proveedor
+select*from Detalle_Ordenes
+select*from Producto
+select*from Cliente
+select*from Ordenes
+
+alter table Proveedor
+add constraint claveforaneapedidoidproveedor foreign key (Cantidad_proveedor)
+references Detalle_Ordenes (Cantidad_proveedor)
+
+alter table Ordenes
+add constraint claveforaneapedidoidacliente2 foreign key (cedula)
+references Cliente(Cedula)
+
+alter table Cliente
+add constraint claveforaneaclienteproducto4 foreign key (Cantidad)
+references Producto(Cantidad)
+
+alter table Detalle_Ordenes
+add constraint claveforaneaclienteproducto5 foreign key (Ruc_Proveedor)
+references Proveedor(Ruc_Proveedor)
+
+alter table Producto
+add constraint claveforanea foreign key (id_ordenes)
+references Ordenes (id_ordenes)
